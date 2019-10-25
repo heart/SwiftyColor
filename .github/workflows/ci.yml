@@ -12,8 +12,8 @@ jobs:
     strategy:
       matrix:
         env:
-          - sdk: iphonesimulator12.2
-            destination: platform=iOS Simulator,name=iPhone XS,OS=12.2
+          - sdk: iphonesimulator12.4
+            destination: platform=iOS Simulator,name=iPhone XS,OS=12.4
 
           - sdk: macosx10.14
             destination: arch=x86_64
