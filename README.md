@@ -11,24 +11,24 @@ Color from Hex int
 --------------
 
 ```swift
-//RRGGBB
+//RGB
 let color = 0x123456.color
 ```
 
 ```swift
-//AARRGGBB
+//ARGB
 let colorWithAlpha = 0xFF123456.color
 ```
 
 Color from Hex string color code
 --------------
 ```swift
-//#RRGGBB
+//#RGB
 let color = "#123456".color
 ```
 
 ```swift
-//#AARRGGBB
+//#ARGB
 let colorWithAlpha = "#FF123456".color
 ```
 
