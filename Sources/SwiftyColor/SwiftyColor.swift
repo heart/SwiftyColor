@@ -33,11 +33,41 @@
 
 extension Int {
   public var color: Color {
+    if self > 16777215 {//ARGB
+        let alpha = CGFloat(self as Int >> 24 & 0xff) / 255
+        let red = CGFloat(self as Int >> 16 & 0xff) / 255
+        let green = CGFloat(self >> 8 & 0xff) / 255
+        let blue  = CGFloat(self & 0xff) / 255
+        return Color(red: red, green: green, blue: blue, alpha: alpha)
+    }
+    
+    //RGB
     let red = CGFloat(self as Int >> 16 & 0xff) / 255
     let green = CGFloat(self >> 8 & 0xff) / 255
     let blue  = CGFloat(self & 0xff) / 255
     return Color(red: red, green: green, blue: blue, alpha: 1)
   }
+}
+
+extension String{
+    
+    public var color: Color?{
+        var colorString:String = self.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+        let validatePattern = "^[#]([0-9A-F]{6}|[0-9A-F]{8})$"
+        let colorPred = NSPredicate(format:"SELF MATCHES %@", validatePattern)
+        let isMatch = colorPred.evaluate(with: self)
+        if isMatch{
+            colorString.remove(at: colorString.startIndex)
+            if colorString.count == 6{ //if color code is RGB add FF as prefix to convert to ARGB
+                colorString = "FF\(colorString)"
+            }
+            var rgbValue:UInt64 = 0
+            Scanner(string: colorString).scanHexInt64(&rgbValue)
+            return Int(rgbValue).color
+        }
+        return nil
+    }
+    
 }
 
 precedencegroup AlphaPrecedence {

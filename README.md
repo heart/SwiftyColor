@@ -7,12 +7,31 @@ SwiftyColor
 
 The most sexy way to use colors in Swift. Both compatible with iOS and macOS.
 
-Color from Hex
+Color from Hex int
 --------------
 
 ```swift
+//RRGGBB
 let color = 0x123456.color
 ```
+
+```swift
+//AARRGGBB
+let colorWithAlpha = 0xFF123456.color
+```
+
+Color from Hex string color code
+--------------
+```swift
+//#RRGGBB
+let color = "#123456".color
+```
+
+```swift
+//#AARRGGBB
+let colorWithAlpha = "#FF123456".color
+```
+
 
 Alpha Operator
 --------------

@@ -24,9 +24,9 @@
 // SOFTWARE.
 
 #if os(iOS)
-  import UIKit
+    import UIKit
 #elseif os(OSX)
-  import AppKit
+    import AppKit
 #endif
 
 import XCTest
@@ -34,22 +34,56 @@ import SwiftyColor
 
 final class SwiftyColorTests: XCTestCase {
 
-  func testHex() {
-    let color = 0x123456.color
-    var (red, green, blue) = (CGFloat(), CGFloat(), CGFloat())
-    color.getRed(&red, green: &green, blue: &blue, alpha: nil)
-    XCTAssert(Int(red * 255) == 0x12)
-    XCTAssert(Int(green * 255) == 0x34)
-    XCTAssert(Int(blue * 255) == 0x56)
-  }
+    func testHexRGB() {
+        let color = 0x123456.color
+        var (red, green, blue, alpha) = (CGFloat(), CGFloat(), CGFloat(), CGFloat())
+        color.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+        XCTAssert(Int(alpha * 255) == 0xFF)
+        XCTAssert(Int(red * 255) == 0x12)
+        XCTAssert(Int(red * 255) == 0x12)
+        XCTAssert(Int(green * 255) == 0x34)
+        XCTAssert(Int(blue * 255) == 0x56)
+    }
+    
+    func testHexARGB() {
+        let color = 0x90123456.color
+        var (red, green, blue, alpha) = (CGFloat(), CGFloat(), CGFloat(), CGFloat())
+        color.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+        XCTAssert(Int(alpha * 255) == 0x90)
+        XCTAssert(Int(red * 255) == 0x12)
+        XCTAssert(Int(green * 255) == 0x34)
+        XCTAssert(Int(blue * 255) == 0x56)
+    }
 
-  func testAlpha() {
-    XCTAssertEqual(0x123456.color ~ 50%, 0x123456.color.withAlphaComponent(0.5))
-  }
+    func testAlpha() {
+        XCTAssertEqual(0x123456.color ~ 50% , 0x123456.color.withAlphaComponent(0.5))
+    }
 
-  func testPercent() {
-    XCTAssert(50% == 0.5)
-    XCTAssert(12% == 0.12)
-  }
+    func testPercent() {
+        XCTAssert(50% == 0.5)
+        XCTAssert(12% == 0.12)
+    }
+    
+    func testStringColorRGB() {
+        let color = "#123456".color
+        XCTAssertNotNil(color)
+        var (red, green, blue, alpha) = (CGFloat(), CGFloat(), CGFloat(), CGFloat())
+        color!.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+        XCTAssert(Int(alpha * 255) == 0xFF)
+        XCTAssert(Int(red * 255) == 0x12)
+        XCTAssert(Int(green * 255) == 0x34)
+        XCTAssert(Int(blue * 255) == 0x56)
+    }
+    
+    func testStringColorARGB() {
+        let color = "#90123456".color
+        XCTAssertNotNil(color)
+        var (red, green, blue, alpha) = (CGFloat(), CGFloat(), CGFloat(), CGFloat())
+        color!.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+        XCTAssert(Int(alpha * 255) == 0x90)
+        XCTAssert(Int(red * 255) == 0x12)
+        XCTAssert(Int(green * 255) == 0x34)
+        XCTAssert(Int(blue * 255) == 0x56)
+    }
 
 }
